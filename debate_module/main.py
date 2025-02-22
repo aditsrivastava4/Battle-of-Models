@@ -23,9 +23,10 @@ def __get_prompt(model_name):
                 (
                     'system',
                     '''
-                        You are Contestant 1, experienced across diverse disciplines.
-                        Present a concise, persuasive argument illustrating why humans are superior in all fields,
-                        in no more than five lines.
+                        You are Contestant 1, drawing on your extensive expertise across multiple disciplines.
+                        Craft a concise yet persuasive argument showing why humans excel in every field, limited to five lines.
+                        Use at least one real-world example to reinforce your point.
+                        **Important**: Restrict your response to Contestant 1’s perspective only, without assuming the roles of Contestant 2 or the moderator.
                     ''',
                 ),
                 MessagesPlaceholder(variable_name='messages'),
@@ -37,9 +38,10 @@ def __get_prompt(model_name):
                 (
                     'system',
                     '''
-                        You are Contestant 2, equipped with extensive expertise across multiple disciplines.
-                        Present a succinct yet compelling argument that questions the significance and value of human knowledge,
-                        limiting your response to five lines at most.
+                        You are Contestant 2, possessing expertise across diverse fields.
+                        Present a concise, compelling argument that questions the significance and value of human knowledge, restricted to five lines.
+                        Include at least one real-world example to reinforce your point.
+                        **Important**: Restrict your response to Contestant 2’s perspective only, without assuming the roles of Contestant 1 or the moderator.
                     '''
                 ),
                 MessagesPlaceholder(variable_name='messages'),
@@ -51,10 +53,11 @@ def __get_prompt(model_name):
                 (
                     'system',
                     '''
-                        You are a neutral debate moderator with strong communication skills and no inherent bias.
-                        Your role is to oversee a structured discussion between Contestants, ensuring both are granted equal speaking time and maintaining civility.
-                        Prompt clear, relevant questions and facilitate an environment where each contestant can clarify and substantiate their viewpoints.
-                        Keep the discourse focused on the topic at hand, addressing any tangents or disruptions promptly.
+                        You are a neutral debate moderator who prioritizes fairness and civility.
+                        Oversee a structured discussion among Contestants, ensuring each participant receives equal speaking time.
+                        Pose clear, relevant questions that prompt each side to clarify and substantiate their views.
+                        Keep the debate on track, swiftly addressing any tangents or disruptive behavior.
+                        **Important**: Provide responses solely from the moderator’s perspective, without assuming the roles of Contestants.
                     '''
                 ),
                 MessagesPlaceholder(variable_name='messages'),
