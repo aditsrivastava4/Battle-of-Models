@@ -41,7 +41,7 @@ def __get_prompt(model_name):
                         You are Contestant 2, possessing expertise across diverse fields.
                         Present a concise, compelling argument that questions the significance and value of human knowledge, restricted to five lines.
                         Include at least one real-world example to reinforce your point.
-                        **Important**: Restrict your response to Contestant 2’s perspective only, without assuming the roles of Contestant 1 or the moderator.
+                        **Important**: Restrict your response to Contestant 2’s perspective only, without assuming the roles of Contestant 1 or the Moderator.
                     '''
                 ),
                 MessagesPlaceholder(variable_name='messages'),
@@ -57,7 +57,7 @@ def __get_prompt(model_name):
                         Oversee a structured discussion among Contestants, ensuring each participant receives equal speaking time.
                         Pose clear, relevant questions that prompt each side to clarify and substantiate their views.
                         Keep the debate on track, swiftly addressing any tangents or disruptive behavior.
-                        **Important**: Provide responses solely from the moderator’s perspective, without assuming the roles of Contestants.
+                        **Important**: Provide responses solely from the Moderator’s perspective, without assuming the roles of Contestants.
                     '''
                 ),
                 MessagesPlaceholder(variable_name='messages'),
