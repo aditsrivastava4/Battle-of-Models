@@ -15,13 +15,13 @@ warnings.filterwarnings('ignore')
 # Initialize round number and config
 round_no = 1
 config = None
-phase = 1  # 1: Contestant 1, 2: Contestant 2, 3: Moderator
 ENTITIES = {
     'c1': 'Contestant 1',
     'c2': 'Contestant 2',
     'moderator': 'Moderator'
 }
 topic = ''
+summary = ''
 
 
 def restart_ollama_server():
@@ -81,9 +81,9 @@ async def debate_response(user_input, chat_history):
     Yields:
         gr.update: Updates the chat history and user input field.
     """
-    global round_no, config, summary, topic, phase  # Use the global round number, config, summary, topic, and phase
+    global round_no, config, summary, topic  # Use the global round number, config, summary, and topic
 
-    if round_no == 1 and phase == 1:
+    if round_no == 1:
         # Initialize the configuration only before the first round
         config = __get_config()
         # Set the topic to the user input
@@ -112,23 +112,20 @@ async def debate_response(user_input, chat_history):
             yield update, gr.update(value="")
         await asyncio.sleep(2)  # Delay to simulate processing time
 
-    # Reset phase for the next round
-    phase = 1
     # Increment the round number for the next call
     round_no += 1
 
 
 def clear_chat():
     """
-    Clears the chat history and resets the round number and phase.
+    Clears the chat history and resets the round number.
 
     Returns:
         tuple: An empty chat history and an updated user input field.
     """
-    global round_no, phase, summary  # Use the global round number and phase
+    global round_no, summary  # Use the global round number
     summary = ''  # Reset the summary
     round_no = 1  # Reset the round number
-    phase = 1  # Reset the phase
     return [], gr.update(value="", interactive=True)
 
 
