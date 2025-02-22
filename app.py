@@ -2,6 +2,7 @@ import asyncio
 import warnings
 import gradio as gr
 from dotenv import load_dotenv
+import subprocess
 from debate_module import __get_config, start_debate
 
 # Load environment variables from .env file
@@ -19,8 +20,33 @@ ENTITIES = {
     'c2': 'Contestant 2',
     'moderator': 'Moderator'
 }
-summary = ''
 topic = ''
+
+
+def restart_ollama_server():
+    """
+    Restarts the Ollama server by stopping any running instances and starting a new one.
+
+    This function performs the following steps:
+    1. Uses PowerShell to find and stop any running processes with names that include 'ollama'.
+    2. Starts a new instance of the Ollama server using PowerShell.
+
+    Note:
+    - This function assumes that 'powershell.exe' is available in the system's PATH.
+    - The 'ollama' command should be available and properly configured to start the server.
+
+    Raises:
+    - subprocess.CalledProcessError: If the subprocess.run or subprocess.Popen commands fail.
+    """
+    # Stop any running Ollama processes
+    subprocess.run(
+        [
+            "powershell.exe", "-Command",
+            "Get-Process | Where-Object {$_.ProcessName -like '*ollama*'} | Stop-Process"
+        ]
+    )
+    # Start a new Ollama server instance
+    subprocess.Popen(["powershell.exe", "-Command", "ollama.exe", "serve"])
 
 
 async def typewriter_effect(response, sender, chat_history):
@@ -40,7 +66,7 @@ async def typewriter_effect(response, sender, chat_history):
         message += char
         chat_history[-1] = (sender, message)
         yield gr.update(value=chat_history)
-        await asyncio.sleep(0.05)  # Adjust the delay for typing speed
+        await asyncio.sleep(0.01)  # Adjust the delay for typing speed
 
 
 async def debate_response(user_input, chat_history):
@@ -61,15 +87,25 @@ async def debate_response(user_input, chat_history):
         config = __get_config()
         # Set the topic to the user input
         topic = user_input
+    else:
+        # restart_ollama_server()  # Restart the Ollama server for subsequent rounds
+        # Above line is for restarting the Ollama server, if you have a GPU with low memory, you can uncomment it.
+        # As it will free up the memory, as this app is loading multiple models in the background.
+        pass
 
     # Add the user input to the chat history
-    chat_history.append(('Topic', user_input))
+    chat_history.append(('Topic', topic))
     yield gr.update(value=chat_history), gr.update(value="", interactive=False)
 
     for entity in ['c1', 'c2', 'moderator']:
         # Generate response for each entity
         response = start_debate(entity, topic, config, summary)
-        summary = f'{summary}\n{ENTITIES[entity]}: {response}\n'
+        if entity == 'moderator':
+            # Add the moderator's response to the summary
+            summary = f'Moderator: {response}\n'
+        else:
+            # Add the entity's response to the summary
+            summary = f'{summary}\n{ENTITIES[entity]}: {response}\n'
         chat_history.append((ENTITIES[entity], ""))
         async for update in typewriter_effect(response, ENTITIES[entity], chat_history):
             yield update, gr.update(value="")
@@ -88,7 +124,8 @@ def clear_chat():
     Returns:
         tuple: An empty chat history and an updated user input field.
     """
-    global round_no, phase
+    global round_no, phase, summary  # Use the global round number and phase
+    summary = ''  # Reset the summary
     round_no = 1  # Reset the round number
     phase = 1  # Reset the phase
     return [], gr.update(value="", interactive=True)
