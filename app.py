@@ -1,8 +1,10 @@
-import subprocess
-from debate_module import __get_config, start_debate
-import gradio as gr
-import warnings
 import asyncio
+import warnings
+import gradio as gr
+from dotenv import load_dotenv
+from debate_module import __get_config, start_debate
+
+load_dotenv()
 
 warnings.filterwarnings('ignore')
 
