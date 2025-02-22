@@ -134,7 +134,7 @@ def start_debate(entity, topic, config, summary=''):
     Returns:
         str: The response from the entity.
     """
-    messages = [HumanMessage(f'Topic: {topic}\n{summary}')]
+    messages = [HumanMessage(f'Topic: {topic}\n**Response**:\n{summary}')]
     model_config = config.get(entity)
 
     if model_config:
