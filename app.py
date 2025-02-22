@@ -66,28 +66,14 @@ async def debate_response(user_input, chat_history):
     chat_history.append(('Topic', user_input))
     yield gr.update(value=chat_history), gr.update(value="", interactive=False)
 
-    # Contestant 1's response
-    response = start_debate('c1', topic, config, summary)
-    summary = f'{summary}\nContestant 1: {response}\n'
-    chat_history.append(('Contestant 1', ""))
-    async for update in typewriter_effect(response, 'Contestant 1', chat_history):
-        yield update, gr.update(value="")
-    await asyncio.sleep(2)  # Delay to simulate processing time
-
-    # Contestant 2's response
-    response = start_debate('c2', topic, config, summary)
-    summary = f'{summary}\nContestant 2: {response}\n'
-    chat_history.append(('Contestant 2', ""))
-    async for update in typewriter_effect(response, 'Contestant 2', chat_history):
-        yield update, gr.update(value="")
-    await asyncio.sleep(2)  # Delay to simulate processing time
-
-    # Moderator's response
-    response = start_debate('moderator', topic, config, summary)
-    summary = f'Moderator: {response}\n'
-    chat_history.append(('Moderator', ""))
-    async for update in typewriter_effect(response, 'Moderator', chat_history):
-        yield update, gr.update(value="")
+    for entity in ['c1', 'c2', 'moderator']:
+        # Generate response for each entity
+        response = start_debate(entity, topic, config, summary)
+        summary = f'{summary}\n{ENTITIES[entity]}: {response}\n'
+        chat_history.append((ENTITIES[entity], ""))
+        async for update in typewriter_effect(response, ENTITIES[entity], chat_history):
+            yield update, gr.update(value="")
+        await asyncio.sleep(2)  # Delay to simulate processing time
 
     # Reset phase for the next round
     phase = 1
