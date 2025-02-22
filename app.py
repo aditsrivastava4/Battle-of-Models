@@ -1,8 +1,9 @@
 import asyncio
 import warnings
+import subprocess
 import gradio as gr
 from dotenv import load_dotenv
-import subprocess
+
 from debate_module import __get_config, start_debate
 
 # Load environment variables from .env file
