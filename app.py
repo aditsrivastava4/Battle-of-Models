@@ -36,11 +36,11 @@ async def debate_response(user_input, chat_history):
 
     if round_no == 1 and phase == 1:
         config = __get_config()  # Call __get_config() only before round 1
+        topic = user_input
 
     # Add the user input to the chat history
-    topic = user_input
-    chat_history.append(('Topic', user_input))
-    yield gr.update(value=chat_history), gr.update(value="")
+    chat_history.append(('Topic', topic))
+    yield gr.update(value=chat_history), gr.update(value="", interactive=False)
 
     # Contestant 1's response
     response = start_debate('c1', topic, config, summary)
@@ -73,7 +73,7 @@ def clear_chat():
     global round_no, phase
     round_no = 1  # Reset the round number
     phase = 1  # Reset the phase
-    return [], ""
+    return [], gr.update(value="", interactive=True)
 
 
 with gr.Blocks(css=".chatbot { height: 70vh !important; }") as demo:
