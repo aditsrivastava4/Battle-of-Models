@@ -72,7 +72,9 @@ This project is a debate simulation using language models. It allows users to in
 
 ## Video Demonstration
 
-Watch a video demonstration of the project in action: [Battle of Models Video](https://youtu.be/OEZioXZ6rNA)
+Watch a video demonstration of the project in action:
+
+[![Battle of Models Video](https://img.youtube.com/vi/OEZioXZ6rNA/0.jpg)](https://youtu.be/OEZioXZ6rNA)
 
 ## License
 
