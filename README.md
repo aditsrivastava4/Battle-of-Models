@@ -1,6 +1,6 @@
 # Battle of Models
 
-This project is a debate simulation using language models. It allows users to input a topic and receive responses from two contestants and a moderator. The responses are streamed with a typewriter effect.
+This project is a debate simulation using language models. It allows users to input a topic and receive responses from two contestants and a moderator. The responses are streamed with a typewriter effect. For More details read my blog [here](https://aditsrivastava.in/f/battle-of-models-tri-model-ai-showdown).
 
 ## Prerequisites
 
