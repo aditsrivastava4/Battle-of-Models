@@ -98,7 +98,7 @@ async def debate_response(user_input, chat_history):
     chat_history.append(('Topic', topic))
     yield gr.update(value=chat_history), gr.update(value="", interactive=False)
 
-    for entity in ['c1', 'c2', 'moderator']:
+    for entity in ['moderator', 'c1', 'c2']:
         # Generate response for each entity
         response = start_debate(entity, topic, config, summary)
         if entity == 'moderator':
@@ -129,7 +129,7 @@ def clear_chat():
     return [], gr.update(value="", interactive=True)
 
 
-with gr.Blocks(css=".chatbot { height: 70vh !important; }") as demo:
+with gr.Blocks(css=".chatbot { height: 70vh !important; }") as app:
     # Create the chat history component
     chat_history = gr.Chatbot(label="Debate Responses", elem_classes="chatbot")
     # Create the user input component
@@ -161,4 +161,4 @@ with gr.Blocks(css=".chatbot { height: 70vh !important; }") as demo:
     )
 
 # Launch the Gradio interface
-demo.launch()
+app.launch()
