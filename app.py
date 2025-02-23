@@ -98,7 +98,7 @@ async def debate_response(user_input, chat_history):
     chat_history.append(('Topic', topic))
     yield gr.update(value=chat_history), gr.update(value="", interactive=False)
 
-    for entity in ['c1', 'c2', 'moderator']:
+    for entity in ['moderator', 'c1', 'c2']:
         # Generate response for each entity
         response = start_debate(entity, topic, config, summary)
         if entity == 'moderator':
