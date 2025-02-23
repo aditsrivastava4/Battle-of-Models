@@ -29,4 +29,3 @@ graph TD
     P -->|Return messages| X[Messages content]
     L -->|Update chat history| Y[Update chat history]
     M -->|Reset variables| Z[Reset round_no, summary]
-```
