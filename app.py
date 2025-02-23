@@ -129,7 +129,7 @@ def clear_chat():
     return [], gr.update(value="", interactive=True)
 
 
-with gr.Blocks(css=".chatbot { height: 70vh !important; }") as demo:
+with gr.Blocks(css=".chatbot { height: 70vh !important; }") as app:
     # Create the chat history component
     chat_history = gr.Chatbot(label="Debate Responses", elem_classes="chatbot")
     # Create the user input component
@@ -161,4 +161,4 @@ with gr.Blocks(css=".chatbot { height: 70vh !important; }") as demo:
     )
 
 # Launch the Gradio interface
-demo.launch()
+app.launch()
