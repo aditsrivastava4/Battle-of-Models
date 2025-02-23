@@ -70,6 +70,10 @@ This project is a debate simulation using language models. It allows users to in
 - `.env.template`: Template for environment variables.
 - `requirements.txt`: List of required Python packages.
 
+## Video Demonstration
+
+Watch a video demonstration of the project in action: [Battle of Models Video](https://youtu.be/OEZioXZ6rNA)
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
