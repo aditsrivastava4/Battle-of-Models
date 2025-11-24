@@ -1,5 +1,5 @@
 from .state import State
-from langchain.llms import Ollama
+from langchain_ollama import ChatOllama
 from langchain_groq import ChatGroq
 from langgraph.graph import START, StateGraph
 from langchain_core.messages import HumanMessage
@@ -80,10 +80,10 @@ def call_model(state: State):
 
     if model_name == 'llama3.1':
         model = ChatGroq(
-            model_name="llama-3.3-70b-versatile"
+            model="llama-3.3-70b-versatile"
         )
     else:
-        model = Ollama(model=model_name)
+        model = ChatOllama(model=model_name)
     prompt = __get_prompt(model_name).invoke(state)
 
     response = model.invoke(prompt)

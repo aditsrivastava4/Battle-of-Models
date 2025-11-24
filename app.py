@@ -67,7 +67,7 @@ async def typewriter_effect(response, sender, chat_history):
         message += char
         chat_history[-1] = (sender, message)
         yield gr.update(value=chat_history)
-        await asyncio.sleep(0.01)  # Adjust the delay for typing speed
+        await asyncio.sleep(0.005)  # Reduced delay for faster typing speed
 
 
 async def debate_response(user_input, chat_history):
@@ -110,7 +110,7 @@ async def debate_response(user_input, chat_history):
         chat_history.append((ENTITIES[entity], ""))
         async for update in typewriter_effect(response, ENTITIES[entity], chat_history):
             yield update, gr.update(value="")
-        await asyncio.sleep(2)  # Delay to simulate processing time
+        await asyncio.sleep(0.5)  # Reduced delay between responses
 
     # Increment the round number for the next call
     round_no += 1
