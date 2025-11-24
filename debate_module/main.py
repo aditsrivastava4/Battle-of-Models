@@ -1,10 +1,11 @@
 from .state import State
-from langchain.llms import Ollama
+from langchain_ollama import ChatOllama
 from langchain_groq import ChatGroq
 from langgraph.graph import START, StateGraph
 from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+import os
 
 
 def __get_prompt(model_name):
@@ -76,14 +77,15 @@ def call_model(state: State):
         dict: The response from the model.
     """
     model_name = state.get('model_name')
+    groq_model_name = os.getenv('GROQ_MODEL_NAME', 'llama-3.3-70b-versatile')
     model = ''
 
     if model_name == 'llama3.1':
         model = ChatGroq(
-            model_name="llama-3.3-70b-versatile"
+            model=groq_model_name
         )
     else:
-        model = Ollama(model=model_name)
+        model = ChatOllama(model=model_name)
     prompt = __get_prompt(model_name).invoke(state)
 
     response = model.invoke(prompt)
