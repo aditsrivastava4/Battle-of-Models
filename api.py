@@ -23,7 +23,7 @@ load_dotenv()
 warnings.filterwarnings('ignore')
 
 # Configuration
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "*").split(",")
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:5173").split(",")
 
 # Initialize FastAPI app
 app = FastAPI(title="Battle of Models API", version="2.0.0")

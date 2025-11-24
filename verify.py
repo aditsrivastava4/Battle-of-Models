@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Verification script to test Battle of Models v2.0 setup
 """
