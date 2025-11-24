@@ -5,6 +5,7 @@ Provides REST API endpoints with Server-Sent Events (SSE) for streaming response
 
 import asyncio
 import json
+import os
 from typing import AsyncGenerator
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,13 +22,16 @@ load_dotenv()
 # Suppress warnings
 warnings.filterwarnings('ignore')
 
+# Configuration
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "*").split(",")
+
 # Initialize FastAPI app
 app = FastAPI(title="Battle of Models API", version="2.0.0")
 
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific origins
+    allow_origins=ALLOWED_ORIGINS,  # Configure via ALLOWED_ORIGINS env var
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
